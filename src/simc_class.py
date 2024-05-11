@@ -496,7 +496,7 @@ class Dem:
 	"""Holds an array of DEM data and relevant metadata."""
 
 	def __init__(self, dem_path):
-		src_dem = gdal.Open(dem_path, GA_ReadOnly)
+		src_dem = gdal.Open(dem_path, gdal.GA_ReadOnly)
 		self.csys = src_dem.GetProjection()
 		self.gt = src_dem.GetGeoTransform()
 		self.nd = src_dem.GetRasterBand(1).GetNoDataValue()

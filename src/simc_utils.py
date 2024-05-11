@@ -46,7 +46,6 @@ from sys import argv, platform
 
 import numpy as np
 from backports import configparser
-from gdalconst import GA_ReadOnly
 from numpy.ctypeslib import ndpointer
 from osgeo import gdal, osr
 from PIL import Image, ImageOps
@@ -186,12 +185,10 @@ def miscSimPrep(confDict, simParams):
 	binsize = float(confDict['sim_params']['binsize'])
 	datum_sample = int(confDict['datum_params']['datum_sample'])
 	for i in range(len(simParams['navdat'])):
-		simParams['shift'][i] = (
-			simParams['navdat'][i].z)*2/c/binsize - datum_sample
+		simParams['shift'][i] = (simParams['navdat'][i].z)*2/c/binsize - datum_sample
 		# Calculate bin of nadir return, if requested.
 		if confDict['display_params']['show_nadir'] == 'True':
-			simParams['nadbin'][i] = int(
-				(simParams['navdat'][i].z-simParams['nad_loc'][i].z)*2/c/binsize - simParams['shift'][i])
+			simParams['nadbin'][i] = int((simParams['navdat'][i].z-simParams['nad_loc'][i].z)*2/c/binsize - simParams['shift'][i])
 
 
 def echomapPrep(confDict, simParams):
@@ -575,11 +572,8 @@ def cluttergram(confDict, simParams, data, i):
 
 	data['twtt_min'] = max(data['rTwtt'])
 	for j in range(len(data['rTwtt'])):
-		boxr = int(data['rTwtt'][j]/float(confDict['sim_params']
-				   ['binsize']) - simParams['shift'][i])
-		boxl = int(data['lTwtt'][j]/float(confDict['sim_params']
-				   ['binsize']) - simParams['shift'][i])
-
+		boxr = int(data['rTwtt'][j]/float(confDict['sim_params']['binsize']) - simParams['shift'][i])
+		boxl = int(data['lTwtt'][j]/float(confDict['sim_params']['binsize']) - simParams['shift'][i])
 		# Checks right two way travel time is less than the two way travel time minimum.
 		# Assigns right data to final products.
 		if data['rTwtt'][j] < data['twtt_min']:
@@ -593,7 +587,6 @@ def cluttergram(confDict, simParams, data, i):
 			data['twtt_min'] = data['lTwtt'][j]
 			data['fret_loc'][i] = data['lFacet'][j].cen
 			data['minbin'][i] = boxl
-
 		# Check right side of the range bin.
 		checkSides(confDict, simParams, data, boxr, [i, j], 'r')
 
