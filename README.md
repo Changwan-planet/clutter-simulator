@@ -89,13 +89,13 @@ tmap = [Output range migration csv]
 Usage:
 
 ```bash
-python3 ./simc.py <config_file>
+python3 simc.py <config_file>
 ```
 
 Example:
 
 ```bash
-python3 ./simc.py ../config/sharad_fpb.cfg
+python3 simc.py ../config/sharad_fpb.cfg
 ```
 
 ## Contributing
